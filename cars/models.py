@@ -1,6 +1,6 @@
 from django.db import models
 
-class Car_Class(models.Model):
+class Class(models.Model):
     name = models.TextField()
     order = models.IntegerField()
     rate = models.FloatField()
@@ -9,12 +9,15 @@ class Car_Class(models.Model):
         return self.name
 
 class Car(models.Model):
-    model = models.TextField()
-    brand = models.TextField()
+    model = models.CharField(max_length=10)
+    brand = models.CharField(max_length=10)
     stall = models.IntegerField()
+    license_plate = models.CharField(max_length=10, null=True)
+    year = models.CharField(max_length=4, null=True)
+    state = models.CharField(max_length=20, null=True)
     doors = models.IntegerField()
     seats = models.IntegerField()
-    fuel = models.TextField()
+    fuel = models.BooleanField(default=False)
     android_carplay = models.BooleanField(default=False)
     touchscreen = models.BooleanField(default=False)
     backup_camera = models.BooleanField(default=False)
@@ -30,7 +33,7 @@ class Car(models.Model):
     bluetooth = models.BooleanField(default=False)
     sunroof = models.BooleanField(default=False)
     usb_port = models.BooleanField(default=False)
-    car_class = models.ForeignKey(Car_Class, on_delete=models.PROTECT)
+    car_class = models.ForeignKey(Class, on_delete=models.PROTECT)
 
     def __str__(self):
         return f"{self.brand} {self.model} Features: Doors: {self.doors}, Seats: {self.seats}, Fuel: {self.fuel}"
